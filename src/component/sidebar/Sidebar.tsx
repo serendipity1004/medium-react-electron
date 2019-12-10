@@ -13,6 +13,10 @@ import PlusIcon from '@material-ui/icons/ControlPoint';
 import history from 'service/history';
 import {indexRoutes} from "route";
 
+const electron = window.require("electron");
+const {shell, clipboard} = electron;
+const {dialog} = electron.remote;
+
 const useStyles = makeStyles(theme => ({
     root: {
         height: '100vh',
@@ -139,6 +143,61 @@ export const Sidebar: React.FC = (props) => {
                     )
                 })
             }
+            <ListItem
+                button
+                className={classes.categoryHeader}
+                dense
+                onClick={() => {
+                }}
+            >
+                <ListItemText primary={
+                    <Grid container justify="space-between">
+                        <Typography variant="body2" className={classes.greyText}>
+                            Electron API
+                        </Typography>
+                        <PlusIcon className={classes.greyIcon}/>
+                    </Grid>
+                }/>
+            </ListItem>
+            <ListItem
+                button
+                onClick={() => {
+                    shell.openExternal('https://github.com');
+                }}
+                dense
+            >
+                <ListItemText primary={
+                    <Typography variant="body2" className={classes.greyText}>
+                        # 브라우저 열기
+                    </Typography>
+                }/>
+            </ListItem>
+            <ListItem
+                button
+                onClick={() => {
+                    clipboard.writeText('# 글자 복사하기');
+                }}
+                dense
+            >
+                <ListItemText primary={
+                    <Typography variant="body2" className={classes.greyText}>
+                        # 글자 복사하기
+                    </Typography>
+                }/>
+            </ListItem>
+            <ListItem
+                button
+                onClick={() => {
+                    dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
+                }}
+                dense
+            >
+                <ListItemText primary={
+                    <Typography variant="body2" className={classes.greyText}>
+                        # 파일 선택하기
+                    </Typography>
+                }/>
+            </ListItem>
         </List>
     )
 };
